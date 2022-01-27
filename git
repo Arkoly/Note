@@ -1,0 +1,145 @@
+git操作
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+例如，要想获得 git config 命令的手册，执行
+
+$ git help config
+
+git init 
+
+git add .
+
+git commit -m 'describe for this commit'
+
+git clone url
+
+git commit --amend   撤销操作
+
+git fetch 拉取数据，但是不合并到自己的分支
+git pull 拉取并尝试合并
+
+分支：
+
+创建分支
+git branch testing   
+
+切换到已存在的分支
+git checkout testing
+
+创建并切换到分支
+git checkout -b testing
+
+修改紧急问题时：
+1.切回master分支
+git checkout master
+
+2.基于master创建修复问题的分支
+git checkout -b hotfix
+
+3.修改完成后将hotfix分支合并到master分支,最后删除该废弃的分支
+git checkout master 
+git merge hotfix
+git branch -d hotfix 
+
+回到原来分支开始工作：
+1.切回自己工作的分支
+git checkout testing
+
+2.将紧急修改的问题合并到当前工作的分支
+git merge master
+或者等工作完成后合并到master分支
+git checkout master
+git merge testing
+推送代码到远端前先拉取master
+在dev_whx分支下：
+Git add .
+git checkout master
+Git pull  拉取master分支的最新代码
+Git checkout dev_whx
+Git merge master  将主分支的最新代码合并的自己本地分支
+有冲突的话，先解决冲突，然后
+Git add .
+Git commit -m “””
+Git push
+将其他分支merge到自己的分支
+
+Git stash  
+Git checkout dev_wl
+Git pull
+Git checkout dev_whx
+Git merge dev_wl
+
+操作commit及版本回退
+Git reset --hard commit_id
+Git push -f
+git merge --abort
+
+$ git reset HEAD~5
+$ git add .
+$ git commit -am "Here's the bug fix that closes #28"
+$ git push --force
+git rebase --abort
+执行之后，本地内容会回到提交之间的状态，也就是回到以前提交但没有pull是的状态，简单来说就是撤销rebase。
+强制覆盖本地分支
+ git fetch --all
+1. git reset --hard origin/master  主分支
+2. git reset --hard origin/dev_whx   自己的分支
+
+创建ssh key
+参考：https://blog.csdn.net/qq_17524035/article/details/70762162
+
+ssh-keygen -t rsa 
+查看id_rsa.pub上传公钥到服务器
+创建分支操作
+Git fetch
+Git checkout -b dev_whx origin/dev_whx
+Git pull 
+Git add . 
+Git commit -m “”
+Git push origin dev_whx
+Git checkout master
+Git marge dev_whx
+Git commit --amend
+Git
+更新远端搜索引擎 
+git fetch -a
+
+查看远程分支
+ git branch -a
+
+关联远程分支
+git branch -u origin/dev
+规范commit的git-cz的用法
+https://juejin.im/post/5cc4694a6fb9a03238106eb9
+npm install -g commitizen
+commitizen init cz-conventional-changelog --save -dev --save-exact
+重命名分支
+·  先将本地分支重命名
+·  git branch -m oldBranch newBranch复制代码
+·  ·  删除远程分支（远端无此分支则跳过该步骤）
+·  git push --delete origin oldBranch复制代码
+·  ·  将重命名后的分支推到远端
+·  git push origin newBranch复制代码
+·  ·  把修改后的本地分支与远程分支关联
+·  git branch --set-upstream-to origin/newBranch
+·  
+作者：Error_Code
+链接：https://juejin.im/post/5d1d7472f265da1b8811f95f
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+Git pull报错error: cannot lock ref 
+解决办法：
+执行：git remote prune origin dev_whx/feature  清除本地没有被删除的分支
+然后根据提示执行:  git branch --set-upstream-to=origin/dev_whx dev_whx
+
+https://blog.csdn.net/sinat_36246371/article/details/79959598?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+
+将远程库merge到本地
+ git fetch -a
+ git merge --no-ff remotes/origin/release 
+
+ 取消merge
+Git checkout 
+Git reset --hard
