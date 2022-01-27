@@ -1,3 +1,4 @@
-1.获取url的search里面的参数值
+参考： https://wangdoc.com/javascript/bom/location.html
+1.获取url的search里面的参数值 
 let params = new URLSearchParams('?foo=1') //动态获取search: location.search
 params.get('foo')
